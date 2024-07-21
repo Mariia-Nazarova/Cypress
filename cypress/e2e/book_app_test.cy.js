@@ -2,6 +2,7 @@
 // запуск npx cypress run
 // npm run e2e:headless = npx cypress run --headless -b chrome --spec "cypress/e2e/book_app_test.cy.js"
 // npm run e2e:chrome  = npx cypress run --headed -b chrome --spec "cypress/e2e/book_app_test.cy.js"
+//запуск viewports через терминал: npx cypress run--browser chrome--config viewportWidth=1280,viewportHeight=720, результат будет лежать в папке е2е->videos
 
 describe("Тест book_app", () => {
   const viewports = [
