@@ -1,0 +1,18 @@
+{
+  "name": "cypress",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run",
+    "e2e:chrome":"cypress run --headed -b chrome",
+    "e2e:edge":"cypress run --headed -b edge",
+    "e2e:headless":"cypress run --headless -b chrome"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "cypress": "^13.13.1"
+  }
+}
