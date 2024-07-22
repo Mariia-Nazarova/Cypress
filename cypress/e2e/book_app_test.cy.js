@@ -33,7 +33,7 @@ describe("Тест book_app", () => {
   });
 
   it("Тест пустого email", () => {
-    cy.login("", "123"); //эта команда лежит в commands.js
+    cy.login("", "123");
     cy.get("#mail").then((elements) => {
       //отработает функция get, вернет набор элементов с селектором #mail, далее отработает фунция then
       expect(elements[0].checkValidity()).to.be.false; //элемент нулевой не прошёл валидацию, т.е. валидация false
@@ -42,11 +42,28 @@ describe("Тест book_app", () => {
   });
 
   it("Тест пустого password", () => {
-    cy.login("bropet@mail.ru", ""); //эта команда лежит в commands.js
+    cy.login("bropet@mail.ru", "");
     cy.get("#pass").then((elements) => {
       //отработает функция get, вернет набор элементов с селектором #pass, далее отработает фунция then
       expect(elements[0].checkValidity()).to.be.false; //элемент нулевой не прошёл валидацию, т.е. валидация false
       expect(elements[0].validationMessage).to.be.eql("Заполните это поле."); //и проверяем, что появилась надпись "Заполните это поле"
     });
+  });
+
+  it("Тест невалидного email", () => {
+    cy.login("1@mail.ru", "123");
+    cy.contains("Неправильая почта или пароль");
+    cy.should("be.visible");
+  });
+
+  it("Тест невалидного password", () => {
+    cy.login("bropet@mail.ru", "4");
+    cy.contains("Неправильая почта или пароль");
+    cy.should("be.visible");
+  });
+
+  it("Тест cancel", () => {
+    cy.get(".ml-auto > .ml-2").click();
+    cy.contains("Cancel").click();
   });
 });
