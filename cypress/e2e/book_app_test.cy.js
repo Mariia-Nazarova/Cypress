@@ -62,8 +62,35 @@ describe("Тест book_app", () => {
     cy.should("be.visible");
   });
 
-  it("Тест cancel", () => {
-    cy.get(".ml-auto > .ml-2").click();
-    cy.contains("Cancel").click();
+  it("Тест на добавление книги в избранное при создании", () => {
+    cy.addBook(
+      "Биология добра и зла.",
+      "Как говорит знаменитый приматолог и нейробиолог",
+      "Роберт Сапольски"
+    );
+    cy.get("#favorite").click().check().should("be.checked");
+    cy.contains("Submit").click();
+  });
+
+  it("Тест на добавление книги в избранное из каталога ", () => {
+    const bookForFavorite1 = //"книга не в избранном"
+      '[href="book/9671d858-7851-4ad9-9dab-657a64384025"] > .h-100 > .card-footer > .btn';
+    cy.login("bropet@mail.ru", "123");
+    cy.get(bookForFavorite1).should("have.text", "Add to favorite").click();
+    cy.get(bookForFavorite1).should("have.text", "Delete from favorite");
+    //для возврата в исходное состояние
+    cy.get(bookForFavorite1).click();
+  });
+
+  it("Тест на удаление книги из избранного", () => {
+    const bookForFavorite2 = // "книга в избранном"
+      '[href="book/ea2f7147-86f3-48d5-9a16-0d1286aa66a1"] > .h-100 > .card-footer > .btn';
+    cy.login("bropet@mail.ru", "123");
+    cy.get(bookForFavorite2)
+      .should("have.text", "Delete from favorite")
+      .click();
+    cy.get(bookForFavorite2).should("have.text", "Add to favorite");
+    //для возврата в исходное состояние
+    cy.get(bookForFavorite2).click();
   });
 });

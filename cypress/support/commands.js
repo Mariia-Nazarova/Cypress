@@ -30,3 +30,13 @@ Cypress.Commands.add("login", (email, password) => {
   if (password) cy.get("#pass").type(password);
   cy.contains("Submit").click();
 });
+
+Cypress.Commands.add("addBook", (title, description, authors) => {
+  cy.login("bropet@mail.ru", "123");
+  cy.get(".p-0 > .btn").click();
+  cy.get("#title").type(title);
+  cy.get("#description").type(description);
+  cy.get("#fileCover").click();
+  cy.get("#fileBook").click();
+  cy.get("#authors").type(authors);
+});
